@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C:\RESUME> Professional Profile</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #000080;
+            color: #C0C0C0;
+            font-family: 'Source Code Pro', 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.4;
+            overflow-x: auto;
+            cursor: text;
+        }
+
+        .terminal {
+            background: #000080;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+        }
+
+        .terminal::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(255,255,255,0.03),
+                    rgba(255,255,255,0.03) 1px,
+                    transparent 1px,
+                    transparent 3px
+                );
+            pointer-events: none;
+            animation: scanlines 0.1s linear infinite;
+        }
+
+        @keyframes scanlines {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(3px); }
+        }
+
+        .title-bar {
+            background: #008080;
+            color: #FFFFFF;
+            padding: 4px 8px;
+            font-weight: bold;
+            border: 2px outset #C0C0C0;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .window-controls {
+            display: flex;
+            gap: 2px;
+        }
+
+        .control-btn {
+            width: 16px;
+            height: 14px;
+            background: #C0C0C0;
+            border: 1px outset #C0C0C0;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .control-btn:hover {
+            background: #E0E0E0;
+        }
+
+        .command-line {
+            color: #FFFF00;
+            margin-bottom: 10px;
+            animation: typewriter 2s steps(40) forwards;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 2px solid #FFFF00;
+        }
+
+        @keyframes typewriter {
+            0% { width: 0; }
+            90% { width: 100%; }
+            100% { width: 100%; border-right: none; }
+        }
+
+        .cursor {
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 10px;
+            border: 1px solid #C0C0C0;
+            background: rgba(192, 192, 192, 0.1);
+        }
+
+        .section-header {
+            color: #FFFF00;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-decoration: underline;
+            font-size: 16px;
+        }
+
+        .menu-option {
+            color: #00FFFF;
+            cursor: pointer;
+            padding: 2px 0;
+            transition: all 0.2s;
+            user-select: none;
+        }
+
+        .menu-option:hover {
+            background: #FFFF00;
+            color: #000080;
+            padding-left: 10px;
+        }
+
+        .menu-option::before {
+            content: '> ';
+            color: #00FF00;
+        }
+
+        .skill-list {
+            list-style: none;
+            margin-left: 20px;
+        }
+
+        .skill-list li {
+            color: #C0C0C0;
+            padding: 1px 0;
+            position: relative;
+        }
+
+        .skill-list li::before {
+            content: '■ ';
+            color: #00FF00;
+        }
+
+        .skill-list li:hover {
+            color: #FFFFFF;
+            background: rgba(255, 255, 0, 0.2);
+        }
+
+        .experience-item {
+            margin: 15px 0;
+            padding: 10px;
+            border-left: 3px solid #00FF00;
+            background: rgba(0, 255, 0, 0.1);
+        }
+
+        .job-title {
+            color: #FFFF00;
+            font-weight: bold;
+        }
+
+        .company {
+            color: #00FFFF;
+        }
+
+        .description {
+            color: #C0C0C0;
+            margin-top: 5px;
+        }
+
+        .stats-display {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .stat-box {
+            border: 2px solid #00FF00;
+            padding: 10px;
+            text-align: center;
+            min-width: 120px;
+            margin: 5px;
+            background: rgba(0, 255, 0, 0.1);
+        }
+
+        .stat-number {
+            color: #FFFF00;
+            font-size: 24px;
+            font-weight: bold;
+            display: block;
+        }
+
+        .stat-label {
+            color: #00FFFF;
+            font-size: 12px;
+        }
+
+        .command-prompt {
+            color: #FFFF00;
+            margin-top: 20px;
+        }
+
+        .command-input {
+            background: transparent;
+            border: none;
+            color: #FFFFFF;
+            font-family: inherit;
+            font-size: inherit;
+            outline: none;
+            width: 300px;
+        }
+
+        .help-text {
+            color: #00FFFF;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+
+        .error-text {
+            color: #FF0000;
+            font-weight: bold;
+        }
+
+        .success-text {
+            color: #00FF00;
+            font-weight: bold;
+        }
+
+        .ascii-art {
+            color: #00FF00;
+            font-size: 10px;
+            line-height: 1;
+            white-space: pre;
+            margin: 20px 0;
+        }
+
+        .progress-bar {
+            background: #C0C0C0;
+            height: 20px;
+            border: 1px inset #C0C0C0;
+            margin: 10px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: #0000FF;
+            height: 100%;
+            animation: loading 3s ease-in-out forwards;
+        }
+
+        @keyframes loading {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
+        .contact-menu {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .contact-option {
+            border: 1px solid #FFFF00;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .contact-option:hover {
+            background: #FFFF00;
+            color: #000080;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                font-size: 12px;
+            }
+            
+            .terminal {
+                padding: 10px;
+            }
+            
+            .stats-display {
+                flex-direction: column;
+            }
+        }
+    
+<style>
+.scrolling-description {
+    height: 100px;
+    overflow: hidden;
+    position: relative;
+    background: rgba(0, 255, 0, 0.05);
+    border: 1px dashed #00FF00;
+    margin: 10px 0;
+}
+.scrolling-description .description {
+    position: absolute;
+    animation: scrollUp 10s linear infinite;
+}
+@keyframes scrollUp {
+    0% { top: 100%; }
+    100% { top: -100%; }
+}
+</style>
+
+</style>
+</head>
+<body>
+    <div class="terminal">
+        <div class="title-bar">
+            <span>MS-DOS Resume System v3.1 - [C:\RESUME\JOSHUA_J_CERTAIN.EXE]</span>
+            <div class="window-controls">
+                <div class="control-btn">_</div>
+                <div class="control-btn">□</div>
+                <div class="control-btn">×</div>
+            </div>
+        </div>
+
+        <div class="command-line">C:\RESUME> JOSHUA_J_CERTAIN.EXE /LOAD</div>
+        
+        <div class="ascii-art"><div style="text-align: center;"><div style="display: inline-block; text-align: left;">
+     ██╗ ██████╗ ███████╗██╗  ██╗██╗   ██╗ █████╗      ██╗    ██████╗███████╗██████╗ ████████╗ █████╗ ██╗███╗   ██╗
+     ██║██╔═══██╗██╔════╝██║  ██║██║   ██║██╔══██╗     ██║   ██╔════╝██╔════╝██╔══██╗╚══██╔══╝██╔══██╗██║████╗  ██║
+     ██║██║   ██║███████╗███████║██║   ██║███████║     ██║   ██║     █████╗  ██████╔╝   ██║   ███████║██║██╔██╗ ██║
+██   ██║██║   ██║╚════██║██╔══██║██║   ██║██╔══██║██   ██║   ██║     ██╔══╝  ██╔══██╗   ██║   ██╔══██║██║██║╚██╗██║
+╚█████╔╝╚██████╔╝███████║██║  ██║╚██████╔╝██║  ██║╚█████╔╝██╗╚██████╗███████╗██║  ██║   ██║   ██║  ██║██║██║ ╚████║
+ ╚════╝  ╚═════╝ ╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝ ╚════╝ ╚═╝ ╚═════╝╚══════╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝
+        </div></div></div>
+        
+<div style="text-align: center; font-family: 'Source Code Pro', monospace; font-size: 16px; color: #00FF00; font-weight: bold; margin-bottom: 10px;">
+  <span id="typewriter-tools-heading"></span><span class="cursor">|</span>
+</div>
+
+<style>
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.cursor {
+  display: inline-block;
+  animation: blink 1s infinite;
+  color: #00FF00;
+}
+</style>
+
+<script>
+  const textHeader = "Tools Used";
+  let iHeader = 0;
+  const speedHeader = 100;
+
+  function typeWriterHeader() {
+    if (iHeader < textHeader.length) {
+      document.getElementById("typewriter-tools-heading").innerHTML += textHeader.charAt(iHeader);
+      iHeader++;
+      setTimeout(typeWriterHeader, speedHeader);
+    }
+  }
+  window.addEventListener('DOMContentLoaded', typeWriterHeader);
+</script>
+
+
+    <div style="margin: 20px 0; text-align: center;">
+    <img src="https://skillicons.dev/icons?i=python,js,vue,nodejs,aws,gcp,tensorflow,pytorch,solidity,linux,git,vim,vscode&theme=dark" 
+         alt="Technical Skills Icons" style="max-width: 100%; height: auto;">
+</div>
+
+        <div class="success-text">► SYSTEM INITIALIZED SUCCESSFULLY</div>
+        <div class="success-text">► LOADING JOSHUA J. CERTAIN PROFESSIONAL PROFILE...</div>
+<div class="success-text">► Is Currently Available for Work</div>
+
+        
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+
+        <div class="stats-display">
+            <div class="stat-box">
+                <span class="stat-number">4+</span>
+                <div class="stat-label">INDUSTRIES</div>
+            </div>
+            <div class="stat-box">
+                <span class="stat-number">15+</span>
+                <div class="stat-label">SKILLS</div>
+            </div>
+            <div class="stat-box">
+                <span class="stat-number">100%</span>
+                <div class="stat-label">UPTIME</div>
+            </div>
+            <div class="stat-box">
+                <span class="stat-number">∞</span>
+                <div class="stat-label">POTENTIAL</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">MAIN MENU - SELECT OPTION:</div>
+            <div class="menu-option" onclick="showSection('skills')">1. Skills</div>
+            <div class="menu-option" onclick="showSection('experience')">2. ACCESS WORK HISTORY</div>
+            <div class="menu-option" onclick="showSection('contact')">3. Contact Information</div>
+            <a class="menu-option" href="https://medium.com/@certain.joshua" target="_blank" style="text-decoration: none;">4. Visit Blog</a>
+            <div class="menu-option" onclick="showAbout()">5. ABOUT THIS SYSTEM</div>
+            <div class="menu-option" onclick="playGames()">6. Games</div>
+
+
+        <div id="skills-section" class="section" style="display: none;">
+            <div class="section-header">TECHNICAL SPECIFICATIONS LOADED</div>
+            
+            <div style="margin: 15px 0;">
+                <ul class="skill-list">
+                    <li>Electrical Installation & Maintenance</li>
+                    <li>Circuit Board Testing & Repair</li>
+                    <li>Component-Level Troubleshooting</li>
+                    <li>SMT & Through-Hole Soldering</li>
+                    <li>Fire Apparatus Electrical Systems</li>
+                    <li>Telecommunications Equipment</li>
+                </ul>
+            </div>
+
+            <div style="margin: 15px 0;">
+                <ul class="skill-list">
+                    <li>Hardware/Software Technical Support</li>
+                    <li>Network Technologies & IP Systems</li>
+                    <li>Linux & Windows Administration</li>
+                    <li>System Troubleshooting</li>
+                    <li>Customer Service Protocols</li>
+                    <li>Database Management</li>
+                </ul>
+            </div>
+
+            <div style="margin: 15px 0;">
+                <ul class="skill-list">
+                    <li>Learning Program Development</li>
+                    <li>Training Content Creation</li>
+                    <li>eLearning Implementation</li>
+                    <li>Data Analysis & Reporting</li>
+                    <li>Mentorship Programs</li>
+                    <li>Performance Optimization</li>
+                </ul>
+            </div>
+
+            <div style="margin: 15px 0;">
+                <ul class="skill-list">
+                    <li>Commercial Driver Operations</li>
+                    <li>DOT Compliance Management</li>
+                    <li>Fleet Coordination</li>
+                    <li>Safety Protocol Implementation</li>
+                    <li>Logistics Operations</li>
+                    <li>Driver Training Systems</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="experience-section" class="section" style="display: none;">
+            <div class="section-header">WORK HISTORY DATABASE</div>
+            
+            <div class="experience-item">
+                <div class="job-title">ELECTRICAL_INSTALLER.EXE</div>
+                <div class="company">SUTPHEN CORPORATION - FIRE APPARATUS MFG</div>
+                <div class="description">Installed and maintained electrical systems in emergency fire apparatus. Specialized in wiring, lighting, sirens, and communication systems for life-saving equipment.</div>
+            </div>
+
+            <div class="experience-item">
+                <div class="job-title">TECH_SUPPORT_ANALYST.EXE</div>
+                <div class="company">STRATACACHE - DIGITAL MEDIA TECH</div>
+                <div class="description">Provided 24/7 technical support for digital signage solutions. Managed customer databases and supported millions of global software activations.</div>
+            </div>
+
+            <div class="experience-item">
+                <div class="job-title">ELECTRONIC_TEST_TECH.EXE</div>
+                <div class="company">CTDI - TELECOMMUNICATIONS</div>
+                <div class="description">Performed component-level testing and repair of telecommunications equipment. Specialized in precision soldering and technical documentation.</div>
+            </div>
+
+            <div class="experience-item">
+                <div class="job-title">LEARNING_AMBASSADOR.EXE</div>
+                <div class="company">AMAZON - TRAINING & DEVELOPMENT</div>
+                <div class="description">Developed learning programs and fostered continuous improvement culture. Created training content and mentored new employees.</div>
+            </div>
+
+            <div class="experience-item">
+                <div class="job-title">TRANSPORT_ASSOCIATE.EXE</div>
+                <div class="company">AMAZON - LOGISTICS OPERATIONS</div>
+                <div class="description">Operated commercial vehicles and managed yard operations. Maintained DOT compliance and provided driver training programs.</div>
+            </div>
+        </div>
+
+        <div id="contact-section" class="section" style="display: none;">
+            <div class="section-header">COMMUNICATION PROTOCOLS</div>
+            <div class="contact-menu">
+                <div class="contact-option">
+                    <a href="mailto:awizardhasenteredthepart@gmail.com" style="color: inherit; text-decoration: none;">
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <img src="https://cdn-icons-png.flaticon.com/512/561/561127.png" alt="Mail Icon" width="32" height="32" style="margin-bottom: 4px;">
+                            <img src="https://cdn-icons-png.flaticon.com/512/3324/3324525.png" alt="Wizard Icon" width="32" height="32" style="margin-bottom: 8px;">
+                            <div class="success-text">EMAIL.EXE</div>
+                            <div>awizardhasenteredthepart@gmail.com</div>
+                        </div>
+                    </a>
+                </div>
+                <div class="contact-option" onclick="alert('Phone Number: Available Upon Request')">
+                    <div style="display: flex; flex-direction: column; align-items: center;">
+                        <img src="https://cdn-icons-png.flaticon.com/512/455/455705.png" alt="Phone Icon" width="32" height="32" style="margin-bottom: 8px;">
+                        <div class="success-text">PHONE.COM</div>
+                        <div>Click to Reveal</div>
+                    </div>
+                </div>
+                <div class="contact-option">
+                    <a href="https://github.com/modernotaku" target="_blank" style="color: inherit; text-decoration: none;">
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Logo" width="32" height="32" style="margin-bottom: 8px;">
+                            <div class="success-text">GITHUB.COM</div>
+                            <div>github.com/modernotaku</div>
+                        </div>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+
+        <div id="output" style="margin: 20px 0; min-height: 100px;"></div>
+
+        <div class="command-prompt">
+            <span>C:\RESUME> </span>
+            <input type="text" class="command-input" id="commandInput" placeholder="Type 'help' for commands">
+            <span class="cursor">_</span>
+        </div>
+
+        <div class="help-text">
+            Available Commands: HELP, SKILLS, EXPERIENCE, CONTACT, WHOAMI, CLEAR, DIR, VER, EXIT
+        </div>
+    </div>
+
+    <script>
+        const output = document.getElementById('output');
+        const commandInput = document.getElementById('commandInput');
+        
+        const commands = {
+            
+            'ipconfig': () => {
+                return `<div class="success-text">IPCONFIG.EXE</div>
+                <div class="description">
+                Ethernet adapter Local Area Connection:<br>
+                &nbsp;&nbsp;IPv4 Address. . . . . . . . . . . : 192.168.1.42<br>
+                &nbsp;&nbsp;Subnet Mask . . . . . . . . . . . : 255.255.255.0<br>
+                &nbsp;&nbsp;Default Gateway . . . . . . . . . : 192.168.1.1
+                </div>`;
+            },
+            'ping': () => {
+                return `<div class="success-text">Pinging google.com [142.250.72.78] with 32 bytes of data:</div>
+                <div class="description">
+                Reply from 142.250.72.78: bytes=32 time=23ms TTL=56<br>
+                Reply from 142.250.72.78: bytes=32 time=25ms TTL=56<br>
+                Reply from 142.250.72.78: bytes=32 time=22ms TTL=56<br>
+                Reply from 142.250.72.78: bytes=32 time=24ms TTL=56<br><br>
+                Ping statistics for 142.250.72.78:<br>
+                &nbsp;&nbsp;Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),<br>
+                Approximate round trip times in milli-seconds:<br>
+                &nbsp;&nbsp;Minimum = 22ms, Maximum = 25ms, Average = 23ms
+                </div>`;
+            },
+            'netstat': () => {
+                return `<div class="success-text">NETSTAT.EXE - Active Connections</div>
+                <div class="description">
+                Proto  Local Address          Foreign Address        State<br>
+                TCP    0.0.0.0:135            DESKTOP:0              LISTENING<br>
+                TCP    127.0.0.1:3306         DESKTOP:0              ESTABLISHED<br>
+                TCP    192.168.1.42:49532     github.com:https       ESTABLISHED
+                </div>`;
+            },
+'help': () => {
+                return `<div class="success-text">AVAILABLE COMMANDS:</div>
+                <div class="skill-list">
+                <li>HELP - Show this help menu</li>
+                <li>SKILLS - Display technical specifications</li>
+                <li>EXPERIENCE - Show work history</li>
+                <li>CONTACT - Display contact information</li>
+                <li>WHOAMI - Display user identity</li>
+                <li>DIR - List directory contents</li>
+                <li>VER - Show system version</li>
+                <li>CLEAR - Clear screen</li>
+                <li>EXIT - Close application</li>
+                </div>`;
+            },
+            'skills': () => showSection('skills'),
+            'experience': () => showSection('experience'),
+            'contact': () => showSection('contact'),
+            'whoami': () => {
+                return `<div class="success-text">CURRENT USER PROFILE:</div>
+                <div class="description">
+                NAME: Joshua J. Certain<br>
+                STATUS: Multi-Industry Technical Professional<br>
+                CLEARANCE: Full System Access<br>
+                SPECIALIZATIONS: Electrical Systems, Technical Support, Training Development, Transportation<br>
+                LOCATION: Available for Remote or On-Site Operations<br>
+                </div>
+                <div class="success-text">USER AUTHENTICATED ✓</div>`;
+            },
+            'dir': () => {
+                return `<div class="success-text">Directory of C:\\RESUME</div>
+                <div class="skill-list">
+                <li>PROFILE.EXE    45,892 bytes</li>
+                <li>SKILLS.DAT     12,456 bytes</li>
+                <li>EXPERIENCE.LOG 23,441 bytes</li>
+                <li>CONTACT.INI     1,024 bytes</li>
+                <li>README.TXT        512 bytes</li>
+                </div>
+                <div class="success-text">5 File(s)   83,325 bytes</div>`;
+            },
+            'ver': () => {
+                return `<div class="success-text">Joshua J. Certain Resume System Version 3.1</div>
+                <div>Multi-Industry Technical Professional</div>
+                <div>Build Date: ${new Date().toLocaleDateString()}</div>`;
+            },
+            'clear': () => {
+                output.innerHTML = '';
+                return '';
+            },
+            'exit': () => {
+                return '<div class="error-text">Thank you for using Joshua J. Certain Resume System v3.1</div>';
+            }
+        };
+
+        function showSection(section) {
+            // Hide all sections
+            document.querySelectorAll('[id$="-section"]').forEach(s => s.style.display = 'none');
+            // Show selected section
+            const targetSection = document.getElementById(section + '-section');
+            if (targetSection) {
+                targetSection.style.display = 'block';
+                return `<div class="success-text">Loading ${section.toUpperCase()} module...</div>`;
+            }
+        }
+
+        function runDiagnostic() {
+            output.innerHTML = `
+                <div class="success-text">► RUNNING SYSTEM DIAGNOSTIC...</div>
+                <div class="progress-bar"><div class="progress-fill"></div></div>
+                <div class="success-text">► ELECTRICAL SYSTEMS: OK</div>
+                <div class="success-text">► TECHNICAL SUPPORT: OK</div>
+                <div class="success-text">► TRAINING MODULES: OK</div>
+                <div class="success-text">► TRANSPORT SYSTEMS: OK</div>
+                <div class="success-text">► ALL SYSTEMS OPERATIONAL</div>
+            `;
+        }
+
+        function showAbout() {
+            output.innerHTML = `
+                <div class="success-text">JOSHUA J. CERTAIN RESUME SYSTEM v3.1</div>
+                <div class="description">
+                Multi-disciplinary professional with expertise across electrical systems, 
+                technical support, training development, and transportation logistics. 
+                Proven track record in manufacturing, telecommunications, and logistics industries.
+                </div>
+                <div class="success-text">System Specifications:</div>
+                <div class="skill-list">
+                <li>Industries: 4+ sectors</li>
+                <li>Core Competencies: 15+</li>
+                <li>Reliability: 99.9% uptime</li>
+                <li>Adaptability: Maximum</li>
+                </div>
+            `;
+        }
+
+        function playGames() {
+            output.innerHTML = `
+                <div class="error-text">GAMES.EXE not found</div>
+                <div class="description">Gaming module not installed in this system configuration.</div>
+                <div class="success-text">Suggestion: Try 'SKILLS' or 'EXPERIENCE' for interactive content.</div>
+            `;
+        }
+
+        function initContact(type) {
+            const messages = {
+                'email': 'Initializing email client... mailto:your.email@domain.com',
+                'phone': 'Establishing voice connection... tel:+15551234567',
+                'linkedin': 'Connecting to professional network...',
+                'resume': 'Preparing file download... RESUME.PDF'
+            };
+            output.innerHTML = `<div class="success-text">${messages[type]}</div>`;
+        }
+
+        commandInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const command = this.value.toLowerCase().trim();
+                const prompt = `<div class="command-line">C:\\RESUME> ${this.value}</div>`;
+                
+                if (commands[command]) {
+                    const result = commands[command]();
+                    output.innerHTML += prompt + (result || '');
+                } else if (command) {
+                    output.innerHTML += prompt + `<div class="error-text">Bad command or file name: ${command}</div>`;
+                }
+                
+                this.value = '';
+                output.scrollIntoView({ behavior: 'smooth', block: 'end' });
+            }
+        });
+
+        // Initialize
+        setTimeout(() => {
+            output.innerHTML = '<div class="success-text">► SYSTEM READY FOR INPUT</div>';
+        }, 3000);
+
+        // Focus on command input
+        commandInput.focus();
+    </script>
+
+<div id="tools-section" class="section" style="display: none;">
+    <div class="section-header">TOOLS USED</div>
+    <div style="text-align: center; margin-top: 20px;">
+        <img src="c523bf55-3c22-4858-bac1-d8af39d2df66.png" alt="Tools Used" style="max-width: 100%; height: auto;">
+    </div>
+</div>
+
+</body>
+
+<script>
+function toggleTools() {
+    hideAllSections();
+    document.getElementById("tools-section").style.display = "block";
+}
+</script>
+
+
+<script>
+function typeLines(targetId, lines, speed = 50) {
+    let container = document.getElementById(targetId);
+    let i = 0;
+    function type() {
+        if (i < lines.length) {
+            container.innerHTML += lines[i] + "<br>";
+            i++;
+            setTimeout(type, speed);
+        }
+    }
+    type();
+}
+</script>
+
+</html>
